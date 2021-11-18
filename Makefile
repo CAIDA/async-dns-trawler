@@ -19,7 +19,7 @@ test:
 	${PYTHON} -m unittest discover -s tests
 
 ctest:
-	coverage run --omit="tests/*" -m unittest discover -s tests
+	coverage run --branch --omit="tests/*" -m unittest discover -s tests/unit
 	coverage report
 	coverage html
 
@@ -27,7 +27,7 @@ lint:
 	flake8 ${SRC_DIRECTORIES}
 
 lint-fix:
-	autopep8 --in-place -r ${SRC_DIRECTORIES}
+	autopep8 --in-place -r ${SRC_DIRECTORIES} --max-line-length 120
 	make lint
 
 type-check:

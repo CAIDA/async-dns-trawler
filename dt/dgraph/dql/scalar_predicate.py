@@ -2,6 +2,7 @@ from typing import Any
 
 from dt.dgraph.constants.scalar_type import ScalarType
 from dt.dgraph.dql.predicate import Predicate
+from dt.dgraph.dql.node_schema import NodeSchema
 from dt.dgraph.mapper.scalar_type_mapper import ScalarTypeMapper
 
 

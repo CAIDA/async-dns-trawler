@@ -1,24 +1,24 @@
-from dt.dgraph.entity.node import Node
+from dt.dgraph.dql.node_id import NodeId
+from dt.dgraph.dql.predicate import Predicate
 
-
-class NodePredicate:
+class NodePredicate(Predicate):
     ''' Defines a single DGraph node predicate pertaining to a link
     between nodes.
 
     Attributes:
         predicate_name: The name of the relationship between nodes.
-        predicate_value: The target node for the relationship
+        predicate_value: The target node's id for the relationship
     '''
 
     predicate_name: str
-    predicate_value: Node
+    predicate_value: NodeId
 
-    def __init__(self, predicate_name: str, predicate_value: Node):
+    def __init__(self, predicate_name: str, predicate_value: NodeId):
         self.predicate_name = predicate_name
         self.predicate_value = predicate_value
 
     def __hash__(self) -> int:
-        return hash((self.predicate_name, self.predicate_value.uid))
+        return hash((self.predicate_name, self.predicate_value))
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, NodePredicate):
@@ -28,3 +28,9 @@ class NodePredicate:
 
     def __repr__(self) -> str:
         return f"NodePredicate({self.predicate_name}, {self.predicate_value})"
+
+    def to_nquad_statement(self) -> str:
+        '''Returns a formatted string containing the predicate
+        and object of an RDF N-Quad statement'''
+        return f'<{self.predicate_name}> {self.predicate_value.to_nquad_statement()}'
+

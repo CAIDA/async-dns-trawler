@@ -1,13 +1,14 @@
 from typing import Any
+from dt.dgraph.dql.i_rdf_convertable import IRDFConvertable
 
 
-class Predicate:
+class Predicate(IRDFConvertable):
     ''' Defines a single DGraph node predicate with it's corresponding
     object value.
 
     Attributes:
         predicate_name: The name for the node's data attribute
-        predicate_value: The string representation of the predicate's 
+        predicate_value: The string representation of the predicate's
                          corresponding value
     '''
 
