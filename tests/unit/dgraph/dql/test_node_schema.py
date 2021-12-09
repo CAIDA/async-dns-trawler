@@ -1,8 +1,8 @@
 import unittest
 
 from dt.dgraph.constants.schema_attribute_type import SchemaAttributeType
-from dt.dgraph.dql.type_attribute import TypeAttribute
 from dt.dgraph.dql.node_schema import NodeSchema
+from dt.dgraph.dql.type_attribute import TypeAttribute
 from dt.dgraph.error.schema_duplicate_error import SchemaDuplicateError
 
 TEST_NODE_TYPE = "TEST_NODE_TYPE"

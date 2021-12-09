@@ -1,10 +1,10 @@
 import unittest
 
-from dt.dgraph.constants.scalar_type import ScalarType
 from dt.dgraph.constants.rdf_type import RDFType
+from dt.dgraph.constants.scalar_type import ScalarType
 from dt.dgraph.constants.schema_attribute_type import SchemaAttributeType
-from dt.dgraph.mapper.scalar_type_mapper import ScalarTypeMapper
 from dt.dgraph.error.invalid_scalar_type_error import InvalidScalarTypeError
+from dt.dgraph.mapper.scalar_type_mapper import ScalarTypeMapper
 
 
 class ScalarTypeMapperTestCase(unittest.TestCase):

@@ -1,9 +1,10 @@
-from typing import List, Set, Optional
+from typing import Dict, List, Optional, Set
 
 from dt.dgraph.dql.i_schema_item import ISchemaItem
 from dt.dgraph.dql.node_schema import NodeSchema
 from dt.dgraph.dql.type_attribute import TypeAttribute
 from dt.dgraph.error.schema_duplicate_error import SchemaDuplicateError
+from dt.util.separated_by import newline_separated
 
 
 class DGraphSchema(ISchemaItem):
@@ -29,6 +30,10 @@ class DGraphSchema(ISchemaItem):
         return node_schema
 
     def get_attributes(self) -> List[TypeAttribute]:
+        combined_type_attributes = self.get_attribute_dict()
+        return sorted(combined_type_attributes.values())
+
+    def get_attribute_dict(self) -> Dict[str, TypeAttribute]:
         combined_type_attributes = {}
         for node_schema in self._node_schema_list:
             for type_attribute in node_schema.get_attributes():
@@ -37,15 +42,14 @@ class DGraphSchema(ISchemaItem):
                     combined_type_attributes[attr_name] = type_attribute
                 elif combined_type_attributes[attr_name] != type_attribute:
                     message = f"Attribute with name: {attr_name} from node_type: " + \
-                    f"{node_schema.node_type} conflicts with current DGraph schema"
+                        f"{node_schema.node_type} conflicts with current DGraph schema"
                     raise SchemaDuplicateError(message)
-
-        return sorted(combined_type_attributes.values())
+        return combined_type_attributes
 
     def to_schema_statement(self) -> str:
         attribute_schema_list = [attr.to_schema_statement() for attr in self.get_attributes()]
-        attr_schema_list_str = "\n".join(attribute_schema_list)
+        attr_schema_list_str = newline_separated(attribute_schema_list)
         node_type_schema_list = [node_schema.to_schema_statement() for node_schema in self._node_schema_list]
-        node_type_schema_list_str = "\n".join(node_type_schema_list)
-        db_schema_str = "\n".join([attr_schema_list_str, node_type_schema_list_str])
+        node_type_schema_list_str = newline_separated(node_type_schema_list)
+        db_schema_str = newline_separated([attr_schema_list_str, node_type_schema_list_str])
         return db_schema_str

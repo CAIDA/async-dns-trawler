@@ -1,10 +1,10 @@
 import unittest
 
-from dt.dgraph.dql.triple import Triple
-from dt.dgraph.dql.node_predicate import NodePredicate
 from dt.dgraph.dql.node_id import NodeId
-from dt.dgraph.entity.node import Node
+from dt.dgraph.dql.node_predicate import NodePredicate
+from dt.dgraph.dql.triple import Triple
 from dt.dgraph.entity.link import Link
+from dt.dgraph.entity.node import Node
 
 TEST_UID = "0x1"
 TEST_UID_2 = "0x2"

@@ -1,8 +1,8 @@
 import unittest
 
 from dt.dgraph.constants.scalar_type import ScalarType
-from dt.dgraph.dql.scalar_predicate import ScalarPredicate
 from dt.dgraph.dql.node_id import NodeId
+from dt.dgraph.dql.scalar_predicate import ScalarPredicate
 from dt.dgraph.dql.triple import Triple
 
 TEST_UID = "0x1"

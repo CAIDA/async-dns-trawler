@@ -1,8 +1,10 @@
-from typing import List, Set, Optional
+from typing import List, Optional, Set
 
 from dt.dgraph.dql.i_schema_item import ISchemaItem
 from dt.dgraph.dql.type_attribute import TypeAttribute
 from dt.dgraph.error.schema_duplicate_error import SchemaDuplicateError
+from dt.dgraph.graphql.block_scope import BlockScope
+from dt.util.separated_by import newline_separated
 
 
 class NodeSchema(ISchemaItem):
@@ -33,7 +35,9 @@ class NodeSchema(ISchemaItem):
         return self._attribute_list
 
     def to_schema_statement(self) -> str:
-        type_statement = f"type {self.node_type}" + " {\n"
-        attribute_name_list_str = "\n".join(self._attribute_name_set)
-        schema_statement = f"{type_statement}{attribute_name_list_str}" + "\n}"
+        attribute_name_list_str = newline_separated(self._attribute_name_set)
+        type_block = BlockScope(block_type="type",
+                                label=self.node_type,
+                                body=attribute_name_list_str)
+        schema_statement = type_block.to_graphql()
         return schema_statement

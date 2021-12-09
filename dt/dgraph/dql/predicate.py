@@ -1,4 +1,5 @@
 from typing import Any
+
 from dt.dgraph.dql.i_rdf_convertable import IRDFConvertable
 
 

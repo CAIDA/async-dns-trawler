@@ -6,4 +6,4 @@ class ISchemaItem:
 
     @abstractmethod
     def to_schema_statement(self) -> str:
-        raise NotImplementedError
+        ''' Returns a string containing a partial or whole DGraph Schema '''

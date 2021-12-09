@@ -7,17 +7,18 @@ from dt.dgraph.dql.node_predicate import NodePredicate
 TEST_PREDICATE_NAME = "TEST_PREDICATE_NAME"
 TEST_UID = "0x1"
 TEST_UID_2 = "TEST_UID2"
-TEST_REPR = "NodePredicate(TEST_PREDICATE_NAME, 0x1)"
+TEST_PREDICATE_VALUE = "<0x1>"
+TEST_REPR = "NodePredicate(TEST_PREDICATE_NAME, <0x1>)"
 TEST_NQUAD_STATEMENT_1 = "<TEST_PREDICATE_NAME> <0x1>"
 TEST_NQUAD_STATEMENT_2 = "<TEST_PREDICATE_NAME> _:TEST_UID2"
+
 
 class NodePredicateTestCase(unittest.TestCase):
     def test_constructor(self) -> None:
         node_id = NodeId(TEST_UID)
         predicate = NodePredicate(TEST_PREDICATE_NAME, node_id)
         self.assertEqual(predicate.predicate_name, TEST_PREDICATE_NAME)
-        self.assertEqual(predicate.predicate_value, node_id)
-
+        self.assertEqual(predicate.predicate_value, TEST_PREDICATE_VALUE)
 
     def test_hash_equal_same_node_id(self) -> None:
         node_id = NodeId(TEST_UID)

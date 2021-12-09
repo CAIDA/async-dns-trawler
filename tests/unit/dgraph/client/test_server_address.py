@@ -9,6 +9,7 @@ TEST_REPR = "ServerAddress(TEST_HOST:8080)"
 TEST_ADDRESS_1 = "TEST_HOST"
 TEST_ADDRESS_2 = "TEST_HOST:8080"
 
+
 class ServerAddressTestCase(unittest.TestCase):
     def test_constructor_no_port(self) -> None:
         server_address = ServerAddress(TEST_HOST)

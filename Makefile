@@ -1,5 +1,8 @@
-PYTHON=python3
+PYTHON=python3.8
 SRC_DIRECTORIES=dt tests
+COVERAGE_HTML_PATH=$(CURDIR)/htmlcov/index.html
+UNIT_TEST_DIR=tests/unit
+INTEGRATION_TEST_DIR=tests/integration
 
 develop:
 	${PYTHON} -m pip install -e .
@@ -16,21 +19,28 @@ clean:
 	-rm .coverage
 
 test:
-	${PYTHON} -m unittest discover -s tests
+	${PYTHON} -m unittest discover -s ${UNIT_TEST_DIR}
 
 ctest:
-	coverage run --branch --omit="tests/*" -m unittest discover -s tests/unit
+	coverage run  -m unittest discover -s ${UNIT_TEST_DIR}
 	coverage report
 	coverage html
+	@echo "Full coverage report at: ${COVERAGE_HTML_PATH}"
+
+itest:
+	${PYTHON} -m unittest discover -s ${INTEGRATION_TEST_DIR}
 
 lint:
 	flake8 ${SRC_DIRECTORIES}
 
 lint-fix:
-	autopep8 --in-place -r ${SRC_DIRECTORIES} --max-line-length 120
+	isort ${SRC_DIRECTORIES}
+	autopep8 --in-place -r ${SRC_DIRECTORIES} --max-line-length 120 -a
 	make lint
 
 type-check:
 	mypy --strict ${SRC_DIRECTORIES}
 
-release: clean develop lint type-check ctest
+dry-run: lint type-check ctest itest
+
+release: clean develop dry-run

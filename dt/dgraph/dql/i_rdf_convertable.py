@@ -6,4 +6,4 @@ class IRDFConvertable:
 
     @abstractmethod
     def to_nquad_statement(self) -> str:
-        raise NotImplementedError
+        ''' Returns a string containing a partial or whole RDF N-Quad statement '''

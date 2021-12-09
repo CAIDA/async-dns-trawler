@@ -1,7 +1,10 @@
 from typing import Set
+
+from dt.dgraph.dql.blank_node_id import BlankNodeId
 from dt.dgraph.dql.node_id import NodeId
 from dt.dgraph.dql.predicate import Predicate
 from dt.dgraph.dql.triple import Triple
+from dt.dgraph.dql.triple_set import TripleSet
 from dt.dgraph.entity.i_entity import IEntity
 
 
@@ -16,8 +19,11 @@ class Node(IEntity):
         predicates: A set of predicates for the given node.
     '''
 
-    def __init__(self, uid: str):
-        self.uid = NodeId(uid)
+    def __init__(self, uid: str, blank_node=False):
+        if blank_node:
+            self.uid = BlankNodeId(uid)
+        else:
+            self.uid = NodeId(uid)
         self.predicates = set()
 
     def add_predicate(self, predicate: Predicate) -> Predicate:
@@ -39,13 +45,13 @@ class Node(IEntity):
         if not isinstance(other, Node):
             return False
         return self.uid == other.uid and \
-               self.predicates == other.predicates
+            self.predicates == other.predicates
 
     def __repr__(self) -> str:
         return f"Node({self.uid})"
 
-    def to_dql_triples(self) -> Set[Triple]:
-        triples_set = set()
+    def to_dql_triples(self) -> TripleSet:
+        triples_set = TripleSet()
         for predicate in self.predicates:
             triple = Triple(self.uid, predicate)
             triples_set.add(triple)

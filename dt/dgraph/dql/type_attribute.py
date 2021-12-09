@@ -4,6 +4,7 @@ from typing import Iterable, Optional, Set
 from dt.dgraph.constants.index_type import PredicateIndex
 from dt.dgraph.constants.schema_attribute_type import SchemaAttributeType
 from dt.dgraph.dql.i_schema_item import ISchemaItem
+from dt.util.separated_by import comma_separated, single_space_separated
 
 
 @total_ordering
@@ -31,15 +32,15 @@ class TypeAttribute(ISchemaItem):
             indices = set()
         self.indices = set(indices)
 
-    def __eq__(self, other:object) -> bool:
+    def __eq__(self, other: object) -> bool:
         if not isinstance(other, TypeAttribute):
             return False
         return self.attr_name == other.attr_name and \
-               self.attr_type == other.attr_type and \
-               self.is_list_type == other.is_list_type and \
-               self.indices == other.indices
+            self.attr_type == other.attr_type and \
+            self.is_list_type == other.is_list_type and \
+            self.indices == other.indices
 
-    def __lt__(self, other:object) -> bool:
+    def __lt__(self, other: object) -> bool:
         if not isinstance(other, TypeAttribute):
             return NotImplemented
         return self.attr_name < other.attr_name
@@ -55,9 +56,9 @@ class TypeAttribute(ISchemaItem):
 
         if len(self.indices) > 0:
             index_name_list = sorted([index.value for index in self.indices])
-            index_name_str = ", ".join(index_name_list)
+            index_name_str = comma_separated(index_name_list)
             index_term = f"@index({index_name_str})"
             attribute_terms.append(index_term)
 
-        term_str = " ".join(attribute_terms)
+        term_str = single_space_separated(attribute_terms)
         return f"{self.attr_name}: {term_str} ."

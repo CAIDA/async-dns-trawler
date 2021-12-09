@@ -44,9 +44,9 @@ class TypeAttributeTestCase(unittest.TestCase):
                                        is_list_type=TEST_IS_LIST_TYPE_TRUE,
                                        indices=TEST_INDICES_1)
         type_attribute2 = TypeAttribute(attr_name=TEST_ATTR_NAME,
-                                       attr_type=TEST_ATTR_TYPE,
-                                       is_list_type=TEST_IS_LIST_TYPE_TRUE,
-                                       indices=TEST_INDICES_1)
+                                        attr_type=TEST_ATTR_TYPE,
+                                        is_list_type=TEST_IS_LIST_TYPE_TRUE,
+                                        indices=TEST_INDICES_1)
         self.assertEqual(type_attribute, type_attribute2)
 
     def test_eq_not_equal_attr_name(self) -> None:
@@ -55,9 +55,9 @@ class TypeAttributeTestCase(unittest.TestCase):
                                        is_list_type=TEST_IS_LIST_TYPE_TRUE,
                                        indices=TEST_INDICES_1)
         type_attribute2 = TypeAttribute(attr_name=TEST_ATTR_NAME_2,
-                                       attr_type=TEST_ATTR_TYPE,
-                                       is_list_type=TEST_IS_LIST_TYPE_TRUE,
-                                       indices=TEST_INDICES_1)
+                                        attr_type=TEST_ATTR_TYPE,
+                                        is_list_type=TEST_IS_LIST_TYPE_TRUE,
+                                        indices=TEST_INDICES_1)
         self.assertNotEqual(type_attribute, type_attribute2)
 
     def test_eq_not_equal_attr_type(self) -> None:
@@ -66,9 +66,9 @@ class TypeAttributeTestCase(unittest.TestCase):
                                        is_list_type=TEST_IS_LIST_TYPE_TRUE,
                                        indices=TEST_INDICES_1)
         type_attribute2 = TypeAttribute(attr_name=TEST_ATTR_NAME,
-                                       attr_type=TEST_ATTR_TYPE_2,
-                                       is_list_type=TEST_IS_LIST_TYPE_TRUE,
-                                       indices=TEST_INDICES_1)
+                                        attr_type=TEST_ATTR_TYPE_2,
+                                        is_list_type=TEST_IS_LIST_TYPE_TRUE,
+                                        indices=TEST_INDICES_1)
         self.assertNotEqual(type_attribute, type_attribute2)
 
     def test_eq_not_equal_is_list_type(self) -> None:
@@ -77,9 +77,9 @@ class TypeAttributeTestCase(unittest.TestCase):
                                        is_list_type=TEST_IS_LIST_TYPE_TRUE,
                                        indices=TEST_INDICES_1)
         type_attribute2 = TypeAttribute(attr_name=TEST_ATTR_NAME,
-                                       attr_type=TEST_ATTR_TYPE,
-                                       is_list_type=TEST_IS_LIST_TYPE_FALSE,
-                                       indices=TEST_INDICES_1)
+                                        attr_type=TEST_ATTR_TYPE,
+                                        is_list_type=TEST_IS_LIST_TYPE_FALSE,
+                                        indices=TEST_INDICES_1)
         self.assertNotEqual(type_attribute, type_attribute2)
 
     def test_eq_not_equal_indices(self) -> None:
@@ -88,9 +88,9 @@ class TypeAttributeTestCase(unittest.TestCase):
                                        is_list_type=TEST_IS_LIST_TYPE_TRUE,
                                        indices=TEST_INDICES_1)
         type_attribute2 = TypeAttribute(attr_name=TEST_ATTR_NAME,
-                                       attr_type=TEST_ATTR_TYPE,
-                                       is_list_type=TEST_IS_LIST_TYPE_TRUE,
-                                       indices=TEST_INDICES_2)
+                                        attr_type=TEST_ATTR_TYPE,
+                                        is_list_type=TEST_IS_LIST_TYPE_TRUE,
+                                        indices=TEST_INDICES_2)
         self.assertNotEqual(type_attribute, type_attribute2)
 
     def test_eq_not_equal_different_class(self) -> None:
@@ -107,9 +107,9 @@ class TypeAttributeTestCase(unittest.TestCase):
                                        is_list_type=TEST_IS_LIST_TYPE_TRUE,
                                        indices=TEST_INDICES_1)
         type_attribute2 = TypeAttribute(attr_name=TEST_ATTR_NAME_2,
-                                       attr_type=TEST_ATTR_TYPE,
-                                       is_list_type=TEST_IS_LIST_TYPE_TRUE,
-                                       indices=TEST_INDICES_1)
+                                        attr_type=TEST_ATTR_TYPE,
+                                        is_list_type=TEST_IS_LIST_TYPE_TRUE,
+                                        indices=TEST_INDICES_1)
         self.assertLess(type_attribute, type_attribute2)
 
     def test_lt_not_implemented(self) -> None:
@@ -118,10 +118,10 @@ class TypeAttributeTestCase(unittest.TestCase):
                                        is_list_type=TEST_IS_LIST_TYPE_TRUE,
                                        indices=TEST_INDICES_1)
         type_attribute2 = object()
+
         def less_than() -> bool:
             return type_attribute < type_attribute2
         self.assertRaises(TypeError, less_than)
-
 
     def test_to_schema_statement_not_list_type_no_indices(self) -> None:
         type_attribute = TypeAttribute(attr_name=TEST_ATTR_NAME,
