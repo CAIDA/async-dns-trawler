@@ -1,13 +1,12 @@
 from abc import ABCMeta, abstractmethod
-from typing import Generic, List, TypeVar
+from typing import Generic, TypeVar
 
 from dt.dns_trawler.db.query_options import QueryOptions
-from dt.dns_trawler.error.internal_server_error import InternalServerError
-from dt.dns_trawler.error.resource_already_exists_error import \
-    ResourceAlreadyExistsError
-from dt.dns_trawler.error.resource_not_found_error import ResourceNotFoundError
+from dt.dns_trawler.db.query_response import QueryResponse
 
 T = TypeVar('T')
+
+# Note: All raised errors come from dt.dns_trawler.error
 
 
 class IDatabaseClient(Generic[T]):
@@ -62,7 +61,7 @@ class IDatabaseClient(Generic[T]):
         '''
 
     @abstractmethod
-    def query(self, query_options: QueryOptions) -> List[T]:
+    def query(self, query_options: QueryOptions) -> QueryResponse[T]:
         ''' Retrieve a list of items from the database that match a
             certain query
         Args:

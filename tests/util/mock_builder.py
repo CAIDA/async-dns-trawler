@@ -55,3 +55,6 @@ class MockBuilder:
             current = parent
             parent = parent.parent
         return current.mock
+
+    def replace_attr(self, other: Any, attr_name: str) -> None:
+        setattr(other, attr_name, self)

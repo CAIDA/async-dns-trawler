@@ -1,15 +1,17 @@
 import unittest
 
-from dt.dgraph.client.dgraph_client import DGraphClient
-from dt.dgraph.client.server_address import ServerAddress
-from dt.dgraph.constants.index_type import DateTimeIndex, StringIndex
-from dt.dgraph.constants.scalar_type import ScalarType
-from dt.dgraph.constants.schema_attribute_type import SchemaAttributeType
-from dt.dgraph.dql.dgraph_schema import DGraphSchema
-from dt.dgraph.dql.node_schema import NodeSchema
-from dt.dgraph.dql.scalar_predicate import ScalarPredicate
-from dt.dgraph.dql.type_attribute import TypeAttribute
-from dt.dgraph.entity.node import Node
+from dt.client.dgraph.client.dgraph_client import DGraphClient
+from dt.client.dgraph.client.server_address import ServerAddress
+from dt.client.dgraph.constants.index_type import DateTimeIndex, StringIndex
+from dt.client.dgraph.constants.scalar_type import ScalarType
+from dt.client.dgraph.constants.schema_attribute_type import \
+    SchemaAttributeType
+from dt.client.dgraph.dql.dgraph_schema import DGraphSchema
+from dt.client.dgraph.dql.node_schema import NodeSchema
+from dt.client.dgraph.dql.scalar_predicate import ScalarPredicate
+from dt.client.dgraph.dql.type_attribute import TypeAttribute
+from dt.client.dgraph.entity.blank_node import BlankNode
+from dt.client.dgraph.entity.node import Node
 from dt.dns_trawler.error.resource_already_exists_error import \
     ResourceAlreadyExistsError
 from dt.dns_trawler.error.resource_not_found_error import ResourceNotFoundError
@@ -69,7 +71,7 @@ class DGraphClientIntegrationTestCase(unittest.TestCase):
         self.assertRaises(ResourceNotFoundError, get_node)
 
     def test_create_and_get_node(self) -> None:
-        blank_node = Node("TEST_BLANK_NODE_ID")
+        blank_node = BlankNode("TEST_BLANK_NODE_ID")
         blank_node.add_predicate(ScalarPredicate(predicate_name="name",
                                                  predicate_value="test",
                                                  predicate_type=ScalarType.STRING))
@@ -77,7 +79,3 @@ class DGraphClientIntegrationTestCase(unittest.TestCase):
                                                  predicate_value="test_type",
                                                  predicate_type=ScalarType.STRING))
         retrieved_node = self.dgraph_client.get(blank_node)
-        print(retrieved_node)
-
-
-# print(node)

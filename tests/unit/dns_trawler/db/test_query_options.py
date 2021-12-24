@@ -2,6 +2,7 @@ import unittest
 
 from dt.dns_trawler.constants.query_operator import QueryOperator
 from dt.dns_trawler.constants.sort_direction import SortDirection
+from dt.dns_trawler.db.order_by import OrderBy
 from dt.dns_trawler.db.query_expression import QueryExpression
 from dt.dns_trawler.db.query_field import QueryField
 from dt.dns_trawler.db.query_options import QueryOptions
@@ -22,23 +23,25 @@ TEST_REPR_2 = "QueryOptions(expression=EQ(QueryField(TEST_FIELD_NAME), 'TEST_FIE
 TEST_REPR_3 = "QueryOptions(expression=EQ(QueryField(TEST_FIELD_NAME), 'TEST_FIELD_VALUE'), " + \
     "next_token=TEST_NEXT_TOKEN)"
 TEST_REPR_4 = "QueryOptions(expression=EQ(QueryField(TEST_FIELD_NAME), 'TEST_FIELD_VALUE'), " + \
-    "sort_direction=ASC)"
+    "order_by=OrderBy(TEST_FIELD_NAME, ASC))"
 TEST_REPR_5 = "QueryOptions(expression=EQ(QueryField(TEST_FIELD_NAME), 'TEST_FIELD_VALUE'), " + \
     "max_results=5, " + \
     "next_token=TEST_NEXT_TOKEN, " + \
-    "sort_direction=ASC)"
+    "order_by=OrderBy(TEST_FIELD_NAME, ASC))"
 
 
 class QueryOptionsTestCase(unittest.TestCase):
     def test_constructor(self) -> None:
+        query_field = QueryField(TEST_FIELD_NAME)
+        order_by = OrderBy(query_field, TEST_SORT_DIRECTION)
         query_options = QueryOptions(expression=TEST_QUERY_EXPRESSION,
                                      max_results=TEST_MAX_RESULTS,
                                      next_token=TEST_NEXT_TOKEN,
-                                     sort_direction=TEST_SORT_DIRECTION)
+                                     order_by=order_by)
         self.assertEqual(query_options.expression, TEST_QUERY_EXPRESSION)
         self.assertEqual(query_options.max_results, TEST_MAX_RESULTS)
         self.assertEqual(query_options.next_token, TEST_NEXT_TOKEN)
-        self.assertEqual(query_options.sort_direction, TEST_SORT_DIRECTION)
+        self.assertEqual(query_options.order_by, order_by)
 
     def test_repr_only_expression(self) -> None:
         query_options = QueryOptions(expression=TEST_QUERY_EXPRESSION)
@@ -60,18 +63,22 @@ class QueryOptionsTestCase(unittest.TestCase):
         expected = TEST_REPR_3
         self.assertEqual(actual, expected)
 
-    def test_repr_expression_with_sort_direction(self) -> None:
+    def test_repr_expression_with_order_by(self) -> None:
+        query_field = QueryField(TEST_FIELD_NAME)
+        order_by = OrderBy(query_field, TEST_SORT_DIRECTION)
         query_options = QueryOptions(expression=TEST_QUERY_EXPRESSION,
-                                     sort_direction=TEST_SORT_DIRECTION)
+                                     order_by=order_by)
         actual = repr(query_options)
         expected = TEST_REPR_4
         self.assertEqual(actual, expected)
 
     def test_repr_full(self) -> None:
+        query_field = QueryField(TEST_FIELD_NAME)
+        order_by = OrderBy(query_field, TEST_SORT_DIRECTION)
         query_options = QueryOptions(expression=TEST_QUERY_EXPRESSION,
                                      max_results=TEST_MAX_RESULTS,
                                      next_token=TEST_NEXT_TOKEN,
-                                     sort_direction=TEST_SORT_DIRECTION)
+                                     order_by=order_by)
         actual = repr(query_options)
         expected = TEST_REPR_5
         self.assertEqual(actual, expected)

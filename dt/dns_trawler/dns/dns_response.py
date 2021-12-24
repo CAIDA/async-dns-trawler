@@ -1,0 +1,2 @@
+class DNSResponse:
+    pass

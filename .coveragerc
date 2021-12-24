@@ -9,6 +9,7 @@ source = dt/
 [report]
 skip_empty = True
 show_missing = True
+skip_covered = True
 fail_under = 80
 exclude_lines =
     pragma: no cover

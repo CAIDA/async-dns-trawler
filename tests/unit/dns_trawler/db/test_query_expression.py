@@ -81,7 +81,7 @@ class QueryExpressionTestCase(unittest.TestCase):
         other = object()
 
         def and_operation() -> None:
-            actual = query_expression & other
+            query_expression & other
         self.assertRaises(InvalidQueryError, and_operation)
 
     def test_or_successful(self) -> None:
@@ -102,7 +102,7 @@ class QueryExpressionTestCase(unittest.TestCase):
         other = object()
 
         def or_operation() -> None:
-            actual = query_expression | other
+            query_expression | other
         self.assertRaises(InvalidQueryError, or_operation)
 
     def test_not_successful(self) -> None:
